@@ -1,0 +1,25 @@
+const http = require('http');
+
+let server = http.createServer(function(req, res) {
+   let url = req.url;
+   switch(url) {
+       case '/1.html': 
+        res.write('1111');
+        res.end();
+       break;
+       case '/2.html': 
+        res.write('2222');
+        res.end();
+       break;
+       case '/index.html': 
+        res.write('index');
+        res.end();
+       break;
+       default:
+        res.write('404');
+        res.end();
+   }
+
+})
+
+server.listen(8080);
