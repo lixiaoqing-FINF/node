@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <script>
+        $(function(){
+            let $name = $('#name');
+            let $pass = $('#pass');
+            let reg_btn = $('#reg');
+            let login_btn = $('#login');
+            reg_btn.on('click', function(){
+                $.ajax({
+                    url: '/user',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {act: 'reg', name: $name.val(), pass: $pass.val()},
+                    success: function(res) {
+                        console.log(res);
+                        if(res.ok){
+                            alert('注册成功');
+                        }else{
+                            alert('注册失败：'+res.msg);
+                        }
+                    },
+                    error: function(){
+                       
+                        console.log('请求失败'); 
+                    }
+                })
+            })
+
+            login_btn.on('click', function(){
+                $.ajax({
+                    url: '/user',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {act: 'login', name: $name.val(), pass: $pass.val()},
+                    success: function(res) {
+                        if(res.ok){
+                            alert('登录成功');
+                        }else{
+                            alert('登录失败：'+res.msg);
+                        }
+                    },
+                    error: function(err){
+                        console.log('请求失败'); 
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+   <form>
+       用户名：<input type="text" value="" id="name"><br>
+       密码：<input type="password" value="" id="pass"><br>
+       <input type="button" value="注册" id="reg">
+       <input type="button" value="登录" id="login">
+   </form> 
+</body>
+</html>
